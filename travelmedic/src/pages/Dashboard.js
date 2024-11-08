@@ -9,4 +9,4 @@ function Dashboard() {
   );
 }
 
-export default AboutPage;
+export default Dashboard;

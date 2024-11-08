@@ -6,6 +6,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import HealthDiaryPage from './pages/HealthDiaryPage';
+import Dashboard from './pages/Dashboard';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/health-diary" element={<HealthDiaryPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
