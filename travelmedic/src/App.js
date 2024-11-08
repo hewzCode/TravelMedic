@@ -5,6 +5,7 @@ import './App.css';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
+import HealthDiaryPage from './pages/HealthDiaryPage';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -30,6 +31,12 @@ function HomePage() {
         >
           About
         </button>
+        <button
+          className="bg-red-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-red-500 transition transform hover:scale-110 shadow-md"
+          onClick={() => navigate('/health-diary')}
+        >
+          Health Diary
+        </button>
       </div>
       <div className="flex-grow flex items-center justify-center">
         <h1 className="text-5xl font-bold text-white">Welcome to TravelMedic</h1>
@@ -46,6 +53,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/health-diary" element={<HealthDiaryPage />} />
       </Routes>
     </Router>
   );
