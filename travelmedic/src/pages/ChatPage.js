@@ -7,46 +7,18 @@ function ChatPage() {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
-  // Function to handle sending a message
-  const sendMessage = async () => {
+  // Function to handle sending a message locally (no API call)
+  const sendMessage = () => {
     if (!input.trim()) return;
 
     const userMessage = { role: 'user', content: input };
     setMessages([...messages, userMessage]);
-
-    // Fetch response from Claude API
-    const responseMessage = await fetchClaudeResponse(input);
-    setMessages([...messages, userMessage, responseMessage]);
     setInput('');
-  };
-
-  // Function to fetch response from Claude API
-  const fetchClaudeResponse = async (text) => {
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/claude', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': '<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>', // Replace with your Claude API key
-        },
-        body: JSON.stringify({
-          prompt: text,
-          max_tokens_to_sample: 150,
-          temperature: 0.7,
-        }),
-      });
-
-      const data = await response.json();
-      return { role: 'assistant', content: data.completion.trim() };
-    } catch (error) {
-      console.error("Error fetching Claude response:", error);
-      return { role: 'assistant', content: "There was an error processing your request." };
-    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold text-white mb-8">Get AI-Powered Help</h1>
+      <h1 className="text-5xl font-bold text-white mb-8">Chat with Claude</h1>
 
       <div className="w-full max-w-lg bg-white p-4 rounded shadow-lg mb-8">
         <div className="overflow-y-auto h-80 mb-4">
