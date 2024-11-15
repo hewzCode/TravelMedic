@@ -7,6 +7,7 @@ function ChatPage() {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
+  // Retrieve API key from environment variables
   const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
 
   // Function to handle sending a message and calling the API
@@ -30,17 +31,25 @@ function ChatPage() {
         },
         body: JSON.stringify({ message }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
-      const apiMessage = { role: 'api', content: data.responseText };
+      console.log("API response:", data); // Debugging log to check response data
+      const apiMessage = { role: 'api', content: data.responseText || "No response text" };
       setMessages((prevMessages) => [...prevMessages, apiMessage]);
     } catch (error) {
       console.error('Error fetching API response:', error);
+      const errorMessage = { role: 'api', content: 'Error: Unable to fetch response.' };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold text-white mb-8">Chat with Claude</h1>
+      <h1 className="text-5xl font-bold text-white mb-8">Chat with Gemini AI</h1>
 
       <div className="w-full max-w-lg bg-white p-4 rounded shadow-lg mb-8">
         <div className="overflow-y-auto h-80 mb-4">
