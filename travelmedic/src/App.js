@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import HealthDiaryPage from './pages/HealthDiaryPage';
 import Dashboard from './pages/Dashboard';
+import ChatPage from './pages/ChatPage'; // Import the ChatPage component
 
 function HomePage() {
   const navigate = useNavigate();
@@ -38,6 +39,12 @@ function HomePage() {
         >
           Health Diary
         </button>
+        <button
+          className="bg-purple-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-purple-500 transition transform hover:scale-110 shadow-md"
+          onClick={() => navigate('/chat')}
+        >
+          Chat with GPT
+        </button>
       </div>
       <div className="flex-grow flex items-center justify-center">
         <h1 className="text-5xl font-bold text-white">Welcome to TravelMedic</h1>
@@ -56,6 +63,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/health-diary" element={<HealthDiaryPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/chat" element={<ChatPage />} /> {/* Add route for ChatPage */}
       </Routes>
     </Router>
   );
