@@ -1,47 +1,27 @@
 // src/pages/ChatPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import generateContent from '../lib/gemini';
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
-  // Retrieve API key from environment variables
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
-
   // Function to handle sending a message and calling the API
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
     const userMessage = { role: 'user', content: input };
     setMessages([...messages, userMessage]);
     setInput('');
-    fetchApiResponse(input); // Call the API with the user's input
-  };
-
-  // Function to fetch the API response
-  const fetchApiResponse = async (message) => {
+    
     try {
-      const response = await fetch('https://api.gemini.googleflash.com/v1/endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({ message }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("API response:", data); // Debugging log to check response data
-      const apiMessage = { role: 'api', content: data.responseText || "No response text" };
+      const responseText = await generateContent(input);
+      const apiMessage = { role: 'api', content: responseText || "No response text" };
       setMessages((prevMessages) => [...prevMessages, apiMessage]);
     } catch (error) {
-      console.error('Error fetching API response:', error);
+      console.error("Error fetching API response:", error);
       const errorMessage = { role: 'api', content: 'Error: Unable to fetch response.' };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
