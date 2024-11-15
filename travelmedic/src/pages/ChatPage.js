@@ -7,13 +7,35 @@ function ChatPage() {
   const [input, setInput] = useState('');
   const navigate = useNavigate();
 
-  // Function to handle sending a message locally (no API call)
+  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+
+  // Function to handle sending a message and calling the API
   const sendMessage = () => {
     if (!input.trim()) return;
 
     const userMessage = { role: 'user', content: input };
     setMessages([...messages, userMessage]);
     setInput('');
+    fetchApiResponse(input); // Call the API with the user's input
+  };
+
+  // Function to fetch the API response
+  const fetchApiResponse = async (message) => {
+    try {
+      const response = await fetch('https://api.gemini.googleflash.com/v1/endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ message }),
+      });
+      const data = await response.json();
+      const apiMessage = { role: 'api', content: data.responseText };
+      setMessages((prevMessages) => [...prevMessages, apiMessage]);
+    } catch (error) {
+      console.error('Error fetching API response:', error);
+    }
   };
 
   return (
