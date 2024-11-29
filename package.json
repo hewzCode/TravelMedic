@@ -1,8 +1,7 @@
 {
-  "homepage" : "http://hewzCode.github.io/TravelMedic",
-  "name": "travelmedic",
+  "homepage" : "http://hewzcode.github.io/TravelMedic",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@testing-library/jest-dom": "^5.17.0",
