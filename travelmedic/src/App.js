@@ -10,7 +10,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex flex-col">
+    <div className="min-nph-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex flex-col">
       <div className="flex justify-end p-6 space-x-4">
         <button
           className="bg-green-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-green-500 transition transform hover:scale-105 shadow-md animate-bounce"
@@ -44,7 +44,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} /> {/* Add the route for LoginPage */}
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </Router>
