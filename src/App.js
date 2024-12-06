@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import AboutPage from "./pages/AboutPage";
 import HealthDiaryPage from "./pages/HealthDiaryPage";
 import Dashboard from "./pages/Dashboard";
-import ChatPage from "./pages/ChatPage"; // Import the ChatPage component
+import ChatPage from "./pages/ChatPage"; // Import the ChatPage component//
 
 function HomePage() {
   const navigate = useNavigate();
