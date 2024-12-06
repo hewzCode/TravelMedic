@@ -10,6 +10,7 @@ function ChatPage() {
   const typingIntervalRef = useRef(null);
   const stopTypingFlag = useRef(false);
   const chatContainerRef = useRef(null);
+  const inputRef = useRef(null); // Ref for the input field
 
   const navigate = useNavigate();
 
@@ -37,6 +38,13 @@ function ChatPage() {
     return () => {
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
     };
+  }, [botTyping]);
+
+  // Focus on the input field when the bot is done typing or typing is canceled
+  useEffect(() => {
+    if (!botTyping && inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [botTyping]);
 
   // Simulate typing word by word
@@ -139,6 +147,7 @@ function ChatPage() {
         {/* Input and Buttons */}
         <div className="flex items-center gap-2">
           <input
+            ref={inputRef} // Attach ref to the input field
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
