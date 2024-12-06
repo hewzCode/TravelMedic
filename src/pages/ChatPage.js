@@ -10,7 +10,6 @@ function ChatPage() {
   const typingIntervalRef = useRef(null);
   const stopTypingFlag = useRef(false);
   const chatContainerRef = useRef(null);
-  const inputRef = useRef(null); // Ref for the input field
 
   const navigate = useNavigate();
 
@@ -38,13 +37,6 @@ function ChatPage() {
     return () => {
       if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
     };
-  }, [botTyping]);
-
-  // Focus on the input field when the bot is done typing or typing is canceled
-  useEffect(() => {
-    if (!botTyping && inputRef.current) {
-      inputRef.current.focus();
-    }
   }, [botTyping]);
 
   // Simulate typing word by word
@@ -95,6 +87,21 @@ function ChatPage() {
     }
   };
 
+  // Stop typing function
+  const stopTyping = () => {
+    stopTypingFlag.current = true; // Stop the typing simulation
+
+    // Clear typing animation
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+      typingIntervalRef.current = null;
+    }
+
+    // Stop bot typing and leave the current message as is
+    setBotTyping(false);
+  };
+
+  // Handle Enter key press in input
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !botTyping) {
       e.preventDefault(); // Prevent default newline behavior
@@ -102,40 +109,26 @@ function ChatPage() {
     }
   };
 
-  const stopTyping = () => {
-    stopTypingFlag.current = true;
-
-    if (typingIntervalRef.current) {
-      clearInterval(typingIntervalRef.current);
-      typingIntervalRef.current = null;
-    }
-
-    setBotTyping(false);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-center p-4">
-      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 text-center">
-        Chat with Gemini AI
-      </h1>
+    <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-center">
+      <h1 className="text-5xl font-bold text-white mb-8">Chat with Gemini AI</h1>
 
-      <div className="w-full max-w-3xl bg-white p-4 rounded-lg shadow-lg flex flex-col h-[80vh]">
-        {/* Chat Message Area */}
+      <div className="w-full max-w-lg bg-white p-4 rounded shadow-lg mb-8">
         <div
           ref={chatContainerRef}
-          className="flex-grow overflow-y-auto p-4 bg-gray-100 rounded mb-4"
+          className="overflow-y-auto h-80 mb-4"
         >
           {messages.map((msg, index) => (
             <div key={index} className={`my-2 ${msg.role === "user" ? "text-right" : "text-left"}`}>
               <div
                 className={`inline-block px-4 py-2 rounded-2xl ${
-                  msg.role === "user" ? "bg-blue-500 text-white" : "bg-gray-300 text-black"
+                  msg.role === "user" ? "bg-blue-400 text-white" : "bg-green-200 text-black"
                 }`}
                 style={{
-                  maxWidth: "75%", // Limit chat bubble width
-                  wordWrap: "break-word",
-                  overflowWrap: "break-word",
-                  whiteSpace: "pre-wrap",
+                  maxWidth: "75%", // Limit width of chat bubbles
+                  wordWrap: "break-word", // Ensure text wraps
+                  overflowWrap: "break-word", // Handle long words
+                  whiteSpace: "pre-wrap", // Preserve spaces and handle wrapping
                 }}
               >
                 {msg.content === "." ? dotAnimation : msg.content}
@@ -144,34 +137,37 @@ function ChatPage() {
           ))}
         </div>
 
-        {/* Input and Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <input
-            ref={inputRef} // Attach ref to the input field
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type your message..."
-            className="flex-grow px-4 py-2 border rounded-lg focus:outline-none"
-            disabled={botTyping}
+            onKeyDown={handleKeyDown} // Add keydown listener for Enter key
+            placeholder="Type a message..."
+            className="flex-grow px-4 py-2 border rounded-l focus:outline-none"
+            disabled={botTyping} // Disable input while the bot is typing
           />
-          <button
-            onClick={botTyping ? stopTyping : sendMessage}
-            className={`px-4 py-2 rounded-lg transition ${
-              botTyping
-                ? "bg-red-500 hover:bg-red-600 text-white"
-                : "bg-green-500 hover:bg-green-600 text-white"
-            }`}
-          >
-            {botTyping ? "Stop" : "Send"}
-          </button>
+          {botTyping ? (
+            <button
+              onClick={stopTyping}
+              className="bg-red-500 text-white px-4 py-2 rounded-r hover:bg-red-600 transition"
+            >
+              Stop
+            </button>
+          ) : (
+            <button
+              onClick={sendMessage}
+              className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition"
+            >
+              Send
+            </button>
+          )}
         </div>
       </div>
 
       <button
         onClick={() => navigate("/")}
-        className="mt-4 bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition transform hover:scale-105 shadow-md"
+        className="bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition transform hover:scale-105 shadow-md"
       >
         Back to Home
       </button>
