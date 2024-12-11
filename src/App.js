@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { HashRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
@@ -7,52 +6,52 @@ import LoginPage from "./pages/LoginPage";
 import AboutPage from "./pages/AboutPage";
 import HealthDiaryPage from "./pages/HealthDiaryPage";
 import Dashboard from "./pages/Dashboard";
-import ChatPage from "./pages/ChatPage"; // Import the ChatPage component//
+import ChatPage from "./pages/ChatPage";
 
 function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-purple-600 to-indigo-800 flex flex-col items-center px-6 sm:px-16 py-8">
+      {/* Title Section */}
+      <div className="mb-12 text-center">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
+          Welcome to <br /> TravelMedic
+        </h1>
+      </div>
+
       {/* Button Section */}
-      <div className="flex flex-col sm:flex-row justify-center sm:justify-end p-6 space-y-4 sm:space-y-0 sm:space-x-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-3xl">
         <button
-          className="w-full sm:w-auto bg-green-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-green-500 transition transform hover:scale-105 shadow-md"
+          className="w-full bg-green-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-green-500 transition transform hover:scale-105 shadow-lg"
           onClick={() => navigate("/signup")}
         >
           Sign Up
         </button>
         <button
-          className="w-full sm:w-auto bg-blue-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-blue-500 transition transform hover:scale-110 shadow-md"
+          className="w-full bg-blue-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-blue-500 transition transform hover:scale-105 shadow-lg"
           onClick={() => navigate("/login")}
         >
           Log In
         </button>
         <button
-          className="w-full sm:w-auto bg-yellow-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-yellow-500 transition transform hover:scale-110 shadow-md"
+          className="w-full bg-yellow-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-yellow-500 transition transform hover:scale-105 shadow-lg"
           onClick={() => navigate("/about")}
         >
           About
         </button>
         <button
-          className="w-full sm:w-auto bg-red-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-red-500 transition transform hover:scale-110 shadow-md"
+          className="w-full bg-red-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-red-500 transition transform hover:scale-105 shadow-lg"
           onClick={() => navigate("/health-diary")}
         >
           Health Diary
         </button>
         <button
-          className="w-full sm:w-auto bg-purple-400 text-white py-2 px-6 rounded-full font-semibold hover:bg-purple-500 transition transform hover:scale-110 shadow-md"
+          className="w-full bg-purple-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-purple-500 transition transform hover:scale-105 shadow-lg"
           onClick={() => navigate("/chat")}
         >
           Chat with GPT
         </button>
-      </div>
-
-      {/* Welcome Message Section */}
-      <div className="flex-grow flex items-center justify-center">
-        <h1 className="text-center text-4xl sm:text-5xl font-bold text-white">
-          Welcome to TravelMedic
-        </h1>
       </div>
     </div>
   );
@@ -68,7 +67,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/health-diary" element={<HealthDiaryPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/chat" element={<ChatPage />} /> {/* Add route for ChatPage */}
+        <Route path="/chat" element={<ChatPage />} />
       </Routes>
     </Router>
   );

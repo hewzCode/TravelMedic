@@ -13,7 +13,6 @@ function ChatPage() {
 
   const navigate = useNavigate();
 
-  // Scroll to the bottom of the chat container
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -24,7 +23,6 @@ function ChatPage() {
     scrollToBottom();
   }, [messages]);
 
-  // Dot animation for bot typing
   useEffect(() => {
     let dotCount = 1;
     if (botTyping) {
@@ -39,15 +37,14 @@ function ChatPage() {
     };
   }, [botTyping]);
 
-  // Simulate typing word by word
   const simulateTyping = (text) => {
     let i = 0;
     const words = text.split(" ");
     stopTypingFlag.current = false;
 
     setMessages((prev) => [
-      ...prev.slice(0, -1), // Replace the "dot" placeholder
-      { role: "bot", content: "" },
+      ...prev.slice(0, -1),
+      { role: "bot", content: "", timestamp: new Date().toLocaleTimeString() },
     ]);
 
     const interval = setInterval(() => {
@@ -59,7 +56,11 @@ function ChatPage() {
 
       setMessages((prev) => [
         ...prev.slice(0, -1),
-        { role: "bot", content: prev[prev.length - 1].content + (i > 0 ? " " : "") + words[i] },
+        {
+          role: "bot",
+          content: prev[prev.length - 1].content + (i > 0 ? " " : "") + words[i],
+          timestamp: new Date().toLocaleTimeString(),
+        },
       ]);
       i++;
     }, 100);
@@ -68,11 +69,17 @@ function ChatPage() {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    setMessages((prev) => [...prev, { role: "user", content: input }]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", content: input, timestamp: new Date().toLocaleTimeString() },
+    ]);
     setInput("");
     setBotTyping(true);
 
-    setMessages((prev) => [...prev, { role: "bot", content: "." }]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "bot", content: ".", timestamp: new Date().toLocaleTimeString() },
+    ]);
 
     try {
       const responseText = await generateContent(input);
@@ -81,83 +88,101 @@ function ChatPage() {
       console.error("Error fetching API response:", error);
       setMessages((prev) => [
         ...prev.slice(0, -1),
-        { role: "bot", content: "Sorry, something went wrong." },
+        {
+          role: "bot",
+          content: "Sorry, something went wrong.",
+          timestamp: new Date().toLocaleTimeString(),
+        },
       ]);
       setBotTyping(false);
     }
   };
 
-  // Stop typing function
   const stopTyping = () => {
-    stopTypingFlag.current = true; // Stop the typing simulation
-
-    // Clear typing animation
+    stopTypingFlag.current = true;
     if (typingIntervalRef.current) {
       clearInterval(typingIntervalRef.current);
       typingIntervalRef.current = null;
     }
-
-    // Stop bot typing and leave the current message as is
     setBotTyping(false);
   };
 
-  // Handle Enter key press in input
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !botTyping) {
-      e.preventDefault(); // Prevent default newline behavior
+      e.preventDefault();
       sendMessage();
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold text-white mb-8">Chat with Gemini AI</h1>
+    <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-start px-4 sm:px-8 py-4">
+      <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4 sm:mb-8 text-center">
+        Chat with Gemini AI
+      </h1>
 
-      <div className="w-full max-w-lg bg-white p-4 rounded shadow-lg mb-8">
+      <div className="w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col justify-between">
         <div
           ref={chatContainerRef}
-          className="overflow-y-auto h-80 mb-4"
+          className="overflow-y-auto h-[60vh] sm:h-96 mb-4 p-2 border border-gray-200 rounded-lg"
         >
           {messages.map((msg, index) => (
-            <div key={index} className={`my-2 ${msg.role === "user" ? "text-right" : "text-left"}`}>
+            <div
+              key={index}
+              className={`my-4 ${
+                msg.role === "user" ? "text-right" : "text-left"
+              } group relative`}
+            >
               <div
-                className={`inline-block px-4 py-2 rounded-2xl ${
-                  msg.role === "user" ? "bg-blue-400 text-white" : "bg-green-200 text-black"
+                className={`inline-block px-4 py-2 rounded-2xl transition-transform duration-300 ${
+                  msg.role === "user"
+                    ? "bg-blue-400 text-white hover:bg-blue-500 hover:scale-105"
+                    : "bg-green-200 text-black hover:bg-green-300 hover:scale-105"
                 }`}
                 style={{
-                  maxWidth: "75%", // Limit width of chat bubbles
-                  wordWrap: "break-word", // Ensure text wraps
-                  overflowWrap: "break-word", // Handle long words
-                  whiteSpace: "pre-wrap", // Preserve spaces and handle wrapping
+                  maxWidth: "75%",
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "pre-wrap",
+                  marginBottom: "20px", // Ensure spacing for timestamp
+                  boxShadow: msg.role === "user" ? "0 4px 6px rgba(0, 0, 255, 0.2)" : "0 4px 6px rgba(0, 255, 0, 0.2)",
                 }}
               >
                 {msg.content === "." ? dotAnimation : msg.content}
+              </div>
+              <div
+                className="text-xs text-gray-500 mt-2"
+                style={{
+                  marginTop: "-10px",
+                }}
+              >
+                {msg.role === "user" ? "You | " : "Bot | "}
+                {msg.timestamp}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown} // Add keydown listener for Enter key
+            onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-grow px-4 py-2 border rounded-l focus:outline-none"
-            disabled={botTyping} // Disable input while the bot is typing
+            className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            disabled={botTyping}
           />
           {botTyping ? (
             <button
               onClick={stopTyping}
-              className="bg-red-500 text-white px-4 py-2 rounded-r hover:bg-red-600 transition"
+              className="bg-red-500 text-white px-4 py-2 rounded-r-lg hover:bg-red-600 transition"
             >
               Stop
             </button>
           ) : (
             <button
               onClick={sendMessage}
-              className="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition"
+              className="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-600 transition"
             >
               Send
             </button>
@@ -167,7 +192,7 @@ function ChatPage() {
 
       <button
         onClick={() => navigate("/")}
-        className="bg-green-600 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-700 transition transform hover:scale-105 shadow-md"
+        className="bg-green-600 text-white py-3 px-6 sm:px-8 rounded-full font-semibold mt-6 hover:bg-green-700 transition transform hover:scale-105 shadow-md"
       >
         Back to Home
       </button>
