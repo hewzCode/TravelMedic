@@ -191,10 +191,10 @@ function ChatPage() {
       </div>
 
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/dashboard")}
         className="bg-green-600 text-white py-3 px-6 sm:px-8 rounded-full font-semibold mt-6 hover:bg-green-700 transition transform hover:scale-105 shadow-md"
       >
-        Back to Home
+        Return to Dashboard
       </button>
     </div>
   );

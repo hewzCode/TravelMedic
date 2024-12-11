@@ -40,18 +40,6 @@ function HomePage() {
         >
           About
         </button>
-        <button
-          className="w-full bg-red-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-red-500 transition transform hover:scale-105 shadow-lg"
-          onClick={() => navigate("/health-diary")}
-        >
-          Health Diary
-        </button>
-        <button
-          className="w-full bg-purple-400 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-purple-500 transition transform hover:scale-105 shadow-lg"
-          onClick={() => navigate("/chat")}
-        >
-          Chat with GPT
-        </button>
       </div>
     </div>
   );

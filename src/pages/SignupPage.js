@@ -1,4 +1,3 @@
-// src/pages/SignupPage.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase-config';
@@ -7,17 +6,17 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // State for error message
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
+      setError(''); // Clear any previous error
       await createUserWithEmailAndPassword(auth, email, password);
-      alert('Signup successful');
-      navigate('/login'); // Redirect to login page
+      navigate('/login'); // Redirect to login page on success
     } catch (error) {
-      alert('Signup failed.');
-      console.error(error.message);
+      setError(error.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -34,6 +33,7 @@ function SignupPage() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -44,8 +44,14 @@ function SignupPage() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
+          {error && (
+            <div className="text-red-500 text-sm">
+              {error} {/* Display error message */}
+            </div>
+          )}
           <button
             type="submit"
             className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition"
