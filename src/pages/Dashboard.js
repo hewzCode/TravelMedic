@@ -25,6 +25,12 @@ function Dashboard() {
         >
           Chat with GPT
         </button>
+        <button
+          onClick={() => navigate("/map")}
+          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold text-lg hover:bg-blue-600 transition transform hover:scale-105 shadow-lg"
+        >
+          Maps
+        </button>
 
         {/* Log Out */}
         <button
