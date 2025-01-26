@@ -117,7 +117,7 @@ function ChatPage() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-start px-4 sm:px-8 py-4">
       <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4 sm:mb-8 text-center">
-        Chat with Gemini AI
+        Chat with TravelMedic
       </h1>
 
       <div className="w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col justify-between">
