@@ -1,18 +1,71 @@
 // src/pages/Dashboard.js
-
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NotificationBell from './NotificationBell'; // Import NotificationBell component
+import { useNotification } from './/NotificationContext'; // Import Notification Context
+import NotificationPopup from './NotificationPopup'; // Import the combined NotificationPopup
 
 function Dashboard() {
   const navigate = useNavigate();
   const username = "User"; // Replace with dynamic user fetching logic if available
+  const { notifications, setNotifications } = useNotification(); // Get notifications from the context
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  // Static notification to simulate health risk alert
+  const staticNotification = { message: "New health risk detected nearby! Stay cautious." };
+
+  useEffect(() => {
+    // Show notification on initial dashboard load
+    setNotifications([staticNotification]);
+    setIsPopupVisible(true); // Show popup when notifications are set
+  }, [setNotifications]);
+
+  const handleBellClick = () => {
+    // When bell icon is clicked, show the popup with the same notification
+    setNotifications([staticNotification]);
+    setIsPopupVisible(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex flex-col items-center justify-center p-4">
-      {/* Responsive text size: 3xl on mobile, 5xl on small screens and up */}
-      <h1 className="text-3xl sm:text-5xl font-bold text-white mb-8 text-center">
-        Welcome, {username}!
-      </h1>
+      {/* Header */}
+      <div className="flex justify-between w-full max-w-sm">
+        <h1 className="text-3xl sm:text-5xl font-bold text-white mb-8 text-center">
+          Welcome, {username}!
+        </h1>
+
+        {/* Notification Bell Icon */}
+        <div className="relative">
+          <NotificationBell onClick={handleBellClick} />
+          {notifications.length > 0 && (
+            <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">
+              {/* Badge to indicate new notifications */}
+              {notifications.length}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Displaying the Notifications */}
+      {notifications.length > 0 && (
+        <div className="w-full max-w-sm mt-4">
+          <ul>
+            {notifications.map((notif, index) => (
+              <li key={index} className="bg-gray-800 text-white p-3 rounded-lg mb-2">
+                {notif.message}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Display Notification Popup */}
+      {isPopupVisible && (
+        <NotificationPopup 
+          notifications={notifications}
+          onClose={() => setIsPopupVisible(false)} // Close the popup when user dismisses it
+        />
+      )}
 
       {/* Container for the buttons */}
       <div className="space-y-4 w-full max-w-sm flex flex-col items-center">

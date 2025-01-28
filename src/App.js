@@ -8,6 +8,9 @@ import HealthDiaryPage from "./pages/HealthDiaryPage";
 import Dashboard from "./pages/Dashboard";
 import ChatPage from "./pages/ChatPage";
 import MapPage from "./pages/MapPage";
+import NotificationPopup from "./pages/NotificationPopup";
+import { NotificationProvider } from "./pages/NotificationContext";
+import NotificationBell from "./pages/NotificationBell";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -48,18 +51,21 @@ function HomePage() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/health-diary" element={<HealthDiaryPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/map" element={<MapPage />} />
-      </Routes>
-    </Router>
+    <NotificationProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/health-diary" element={<HealthDiaryPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/notification" element={<NotificationPopup />} />
+        </Routes>
+      </Router>
+    </NotificationProvider>
   );
 }
 
