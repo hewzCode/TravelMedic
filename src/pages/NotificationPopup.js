@@ -5,7 +5,7 @@ function NotificationPopup({ notifications, onClose }) {
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h3 className="text-lg font-bold">New Notifications</h3>
+        <h3 className="text-lg font-bold">New Notification</h3>
         <ul>
           {notifications.map((notif, index) => (
             <li key={index} className="text-gray-800">

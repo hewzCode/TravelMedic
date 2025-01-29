@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NotificationBell from './NotificationBell'; // Import NotificationBell component
-import { useNotification } from './/NotificationContext'; // Import Notification Context
+import { useNotification } from './NotificationContext'; // Import Notification Context
 import NotificationPopup from './NotificationPopup'; // Import the combined NotificationPopup
 
 function Dashboard() {
@@ -15,9 +15,14 @@ function Dashboard() {
   const staticNotification = { message: "New health risk detected nearby! Stay cautious." };
 
   useEffect(() => {
-    // Show notification on initial dashboard load
-    setNotifications([staticNotification]);
-    setIsPopupVisible(true); // Show popup when notifications are set
+    // Check if the notification has already been shown in this session
+    const hasShownNotification = sessionStorage.getItem("healthAlertShown");
+
+    if (!hasShownNotification) {
+      setNotifications([staticNotification]);
+      setIsPopupVisible(true);
+      sessionStorage.setItem("healthAlertShown", "true"); // Store that the alert has been shown
+    }
   }, [setNotifications]);
 
   const handleBellClick = () => {
@@ -39,7 +44,6 @@ function Dashboard() {
           <NotificationBell onClick={handleBellClick} />
           {notifications.length > 0 && (
             <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">
-              {/* Badge to indicate new notifications */}
               {notifications.length}
             </div>
           )}
@@ -69,7 +73,6 @@ function Dashboard() {
 
       {/* Container for the buttons */}
       <div className="space-y-4 w-full max-w-sm flex flex-col items-center">
-        {/* Health Diary button */}
         <button
           onClick={() => navigate("/health-diary")}
           className="w-full bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-purple-600 transition transform hover:scale-105 shadow-lg"
@@ -77,7 +80,6 @@ function Dashboard() {
           Go to Health Diary
         </button>
 
-        {/* Chat with GPT */}
         <button
           onClick={() => navigate("/chat")}
           className="w-full bg-green-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-green-600 transition transform hover:scale-105 shadow-lg"
@@ -85,7 +87,6 @@ function Dashboard() {
           Chat with GPT
         </button>
 
-        {/* Maps */}
         <button
           onClick={() => navigate("/map")}
           className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-blue-600 transition transform hover:scale-105 shadow-lg"
@@ -93,7 +94,6 @@ function Dashboard() {
           Maps
         </button>
 
-        {/* Log Out */}
         <button
           onClick={() => navigate("/")}
           className="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-red-600 transition transform hover:scale-105 shadow-lg"
