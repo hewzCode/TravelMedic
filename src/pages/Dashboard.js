@@ -84,7 +84,7 @@ function Dashboard() {
             className="w-full bg-[#10b981] text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-[#059669] transition transform hover:scale-105 shadow-lg flex items-center justify-center"
           >
             <FaComment className="mr-3 text-white opacity-70" /> {/* Chat Icon */}
-            Chat with GPT
+            Chat with TravelMedic
           </button>
 
           <button
