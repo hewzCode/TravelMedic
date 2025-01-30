@@ -36,7 +36,7 @@ function Dashboard() {
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         {/* Header */}
         <div className="flex justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Welcome, {username}!</h1>
+          <h1 className="text-3xl font-bold text-gray-800 flex-grow text-center">Welcome!</h1>
           {/* Notification Bell Icon */}
           <div className="relative cursor-pointer" onClick={handleBellClick}>
             <NotificationBell />
