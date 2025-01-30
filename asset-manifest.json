@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/TravelMedic/static/css/main.bde385ca.css",
-    "main.js": "/TravelMedic/static/js/main.b778b845.js",
+    "main.js": "/TravelMedic/static/js/main.402e7d77.js",
     "index.html": "/TravelMedic/index.html",
     "main.bde385ca.css.map": "/TravelMedic/static/css/main.bde385ca.css.map",
-    "main.b778b845.js.map": "/TravelMedic/static/js/main.b778b845.js.map"
+    "main.402e7d77.js.map": "/TravelMedic/static/js/main.402e7d77.js.map"
   },
   "entrypoints": [
     "static/css/main.bde385ca.css",
-    "static/js/main.b778b845.js"
+    "static/js/main.402e7d77.js"
   ]
 }
