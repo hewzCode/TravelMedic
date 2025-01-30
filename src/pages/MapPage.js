@@ -186,9 +186,9 @@ function MapPage() {
           bottom={4}
           right={4}
           zIndex={9999}
-          bg="#7f5af0"
+          bg="#10b981"  // Green color for buttons
           color="white"
-          _hover={{ bg: '#6a48cc' }}
+          _hover={{ bg: '#059669' }} // Hover color for green
           onClick={() => setPanelVisible(true)}
         />
       )}
@@ -208,9 +208,9 @@ function MapPage() {
             {/* Top row: Return to Dashboard & hide panel */}
             <HStack justifyContent="space-between" w="full">
               <Button
-                bg="#7f5af0"
+                bg="#10b981" // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 onClick={() => navigate('/dashboard')}
               >
                 Return to Dashboard
@@ -219,9 +219,9 @@ function MapPage() {
               <IconButton
                 aria-label="Hide Panel"
                 icon={<FaChevronDown />}
-                bg="#7f5af0"
+                bg="#10b981"  // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 onClick={() => setPanelVisible(false)}
               />
             </HStack>
@@ -239,9 +239,9 @@ function MapPage() {
             {/* ROUTE BUTTONS */}
             <ButtonGroup w="full" justifyContent="center">
               <Button
-                bg="#7f5af0"
+                bg="#10b981"  // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 onClick={calculateRoute}
               >
                 Calculate Route
@@ -249,9 +249,9 @@ function MapPage() {
               <IconButton
                 aria-label="Clear route"
                 icon={<FaTrash />} // changed to trash
-                bg="#7f5af0"
+                bg="#10b981"  // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 onClick={clearRoute}
               />
             </ButtonGroup>
@@ -267,18 +267,18 @@ function MapPage() {
               <IconButton
                 aria-label="Center Map"
                 icon={<FaHome />}
-                bg="#7f5af0"
+                bg="#10b981"  // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 isRound
                 onClick={centerMap}
               />
               <IconButton
                 aria-label="Locate Me"
                 icon={<FaLocationArrow />}
-                bg="#7f5af0"
+                bg="#10b981"  // Green color for buttons
                 color="white"
-                _hover={{ bg: '#6a48cc' }}
+                _hover={{ bg: '#059669' }} // Hover color for green
                 isRound
                 onClick={locateUser}
               />

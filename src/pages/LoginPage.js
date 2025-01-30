@@ -21,9 +21,9 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
+    <div className="bg-[#1e293b] min-h-screen flex justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-4">Log In</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Log In</h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -54,14 +54,14 @@ function LoginPage() {
           )}
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition"
+            className="w-full bg-[#10b981] text-white py-2 px-4 rounded-md hover:bg-[#059669] transition"
           >
             Log In
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-purple-500 hover:underline">
+          <Link to="/signup" className="text-[#10b981] hover:underline"> 
             Sign up
           </Link>
         </p>

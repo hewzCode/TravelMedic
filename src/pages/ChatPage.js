@@ -115,12 +115,12 @@ function ChatPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-500 to-blue-600 flex flex-col items-center justify-start px-4 sm:px-8 py-4">
-      <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4 sm:mb-8 text-center">
-        Chat with TravelMedic
-      </h1>
-
+    <div className="min-h-screen bg-[#1e293b] flex justify-center items-center py-10">
       <div className="w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col justify-between">
+        <h1 className="text-3xl sm:text-5xl font-bold text-black mb-4 sm:mb-8 text-center">
+          Chat with TravelMedicAI
+        </h1>
+
         <div
           ref={chatContainerRef}
           className="overflow-y-auto h-[60vh] sm:h-96 mb-4 p-2 border border-gray-200 rounded-lg"
@@ -135,7 +135,7 @@ function ChatPage() {
               <div
                 className={`inline-block px-4 py-2 rounded-2xl transition-transform duration-300 ${
                   msg.role === "user"
-                    ? "bg-blue-400 text-white hover:bg-blue-500 hover:scale-105"
+                    ? "bg-[#10b981] text-white hover:bg-[#059669] hover:scale-105"
                     : "bg-green-200 text-black hover:bg-green-300 hover:scale-105"
                 }`}
                 style={{
@@ -169,7 +169,7 @@ function ChatPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#10b981]"
             disabled={botTyping}
           />
           {botTyping ? (
@@ -182,20 +182,23 @@ function ChatPage() {
           ) : (
             <button
               onClick={sendMessage}
-              className="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-600 transition"
+              className="bg-[#10b981] text-white px-4 py-2 rounded-r-lg hover:bg-[#059669] transition"
             >
               Send
             </button>
           )}
         </div>
-      </div>
 
-      <button
-        onClick={() => navigate("/dashboard")}
-        className="bg-green-600 text-white py-3 px-6 sm:px-8 rounded-full font-semibold mt-6 hover:bg-green-700 transition transform hover:scale-105 shadow-md"
-      >
-        Return to Dashboard
-      </button>
+        {/* Return to Dashboard Button */}
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="bg-[#10b981] text-white py-3 px-6 sm:px-8 rounded-full font-semibold hover:bg-[#059669] transition transform hover:scale-105 shadow-md"
+          >
+            Return to Dashboard
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

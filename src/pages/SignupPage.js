@@ -6,24 +6,24 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // State for error message
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      setError(''); // Clear any previous error
+      setError('');
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/login'); // Redirect to login page on success
+      navigate('/login');
     } catch (error) {
       setError(error.message || 'Signup failed. Please try again.');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center">
+    <div className="bg-[#1e293b] min-h-screen flex justify-center items-center"> {/* Navy blue background */}
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Sign Up</h2>
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
@@ -49,19 +49,19 @@ function SignupPage() {
           </div>
           {error && (
             <div className="text-red-500 text-sm">
-              {error} {/* Display error message */}
+              {error}
             </div>
           )}
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition"
+            className="w-full bg-[#10b981] text-white py-2 px-4 rounded-md hover:bg-[#059669] transition"
           >
             Sign Up
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{' '}
-          <Link to="/login" className="text-purple-500 hover:underline">
+          <Link to="/login" className="text-[#10b981] hover:underline">
             Sign in
           </Link>
         </p>

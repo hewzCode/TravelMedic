@@ -39,117 +39,15 @@ function HealthDiaryPage() {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
 
-  // ===========
-  //   STYLES
-  // ===========
-  const pageStyle = {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'linear-gradient(to right, #7f5af0, #2a2a72)',
-    padding: '1rem',
-  };
-
-  const containerStyle = {
-    backgroundColor: '#fff',
-    padding: '1.5rem',
-    borderRadius: '0.75rem',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-    width: '100%',
-    maxWidth: '600px',
-  };
-
-  const titleStyle = {
-    fontSize: '1.75rem',
-    fontWeight: 'bold',
-    marginBottom: '1rem',
-    textAlign: 'center',
-    color: '#7f5af0',
-  };
-
-  const buttonBlueStyle = {
-    backgroundColor: '#1e3a8a',
-    color: '#fff',
-    padding: '0.5rem 1rem',
-    borderRadius: '0.5rem',
-    cursor: 'pointer',
-    marginBottom: '1.5rem',
-    border: 'none',
-  };
-
-  const labelStyle = {
-    display: 'block',
-    marginBottom: '0.5rem',
-    fontWeight: '500',
-    color: '#4b4b4b',
-  };
-
-  const inputFieldStyle = {
-    width: '100%',
-    padding: '0.75rem',
-    borderRadius: '0.5rem',
-    border: '1px solid #ddd',
-    marginBottom: '1rem',
-    fontSize: '1rem',
-    outline: 'none',
-  };
-
-  const inputFieldFocusStyle = {
-    boxShadow: '0 0 5px rgba(127, 90, 240, 0.3)',
-    borderColor: '#7f5af0',
-  };
-
-  const addButtonStyle = {
-    width: '100%',
-    padding: '0.75rem',
-    borderRadius: '0.5rem',
-    backgroundColor: '#7f5af0',
-    color: '#fff',
-    fontSize: '1rem',
-    fontWeight: '500',
-    border: 'none',
-    cursor: 'pointer',
-  };
-
-  const diaryTitleStyle = {
-    fontSize: '1.25rem',
-    fontWeight: '600',
-    color: '#7f5af0',
-    marginBottom: '1rem',
-  };
-
-  const entryItemStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.5rem',
-    backgroundColor: '#fff',
-    borderRadius: '0.5rem',
-    padding: '1rem',
-    marginBottom: '1rem',
-    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
-  };
-
-  const deleteButtonStyle = {
-    backgroundColor: '#ef4444',
-    color: '#fff',
-    padding: '0.4rem 0.8rem',
-    borderRadius: '0.25rem',
-    cursor: 'pointer',
-    border: 'none',
-    marginTop: '0.5rem',
-    alignSelf: 'flex-start',
-  };
-
   return (
-    <div style={pageStyle}>
-      <div style={containerStyle}>
-        <h1 style={titleStyle}>Virtual Health Diary</h1>
+    <div className="min-h-screen bg-[#1e293b] flex justify-center items-center py-10">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-4 text-black text-center">Virtual Health Diary</h1>
 
         {/* Return to Dashboard Button */}
         <button
           onClick={() => navigate('/dashboard')}
-          style={buttonBlueStyle}
+          className="bg-[#10b981] text-white py-2 px-4 rounded-md w-full mb-4 hover:bg-[#059669] transition duration-300"
         >
           Return to Dashboard
         </button>
@@ -157,24 +55,18 @@ function HealthDiaryPage() {
         {/* ENTRY FORM */}
         <div>
           {/* Date Field */}
-          <label htmlFor="date" style={labelStyle}>
-            Date
-          </label>
+          <label htmlFor="date" className="block text-gray-700 font-medium mb-2">Date</label>
           <input
             type="date"
             id="date"
             name="date"
             value={newEntry.date}
             onChange={handleInputChange}
-            style={inputFieldStyle}
-            onFocus={(e) => (e.target.style = { ...inputFieldStyle, ...inputFieldFocusStyle })}
-            onBlur={(e) => (e.target.style = inputFieldStyle)}
+            className="w-full p-3 border border-gray-300 rounded-md mb-4"
           />
 
           {/* Symptom Field */}
-          <label htmlFor="symptom" style={labelStyle}>
-            Symptom
-          </label>
+          <label htmlFor="symptom" className="block text-gray-700 font-medium mb-2">Symptom</label>
           <input
             type="text"
             id="symptom"
@@ -182,55 +74,42 @@ function HealthDiaryPage() {
             value={newEntry.symptom}
             onChange={handleInputChange}
             placeholder="Enter a symptom"
-            style={inputFieldStyle}
-            onFocus={(e) => (e.target.style = { ...inputFieldStyle, ...inputFieldFocusStyle })}
-            onBlur={(e) => (e.target.style = inputFieldStyle)}
+            className="w-full p-3 border border-gray-300 rounded-md mb-4"
           />
 
           {/* Notes Field */}
-          <label htmlFor="notes" style={labelStyle}>
-            Additional Notes
-          </label>
+          <label htmlFor="notes" className="block text-gray-700 font-medium mb-2">Additional Notes</label>
           <textarea
             id="notes"
             name="notes"
             value={newEntry.notes}
             onChange={handleInputChange}
             placeholder="Any additional notes"
-            style={{ ...inputFieldStyle, height: '100px', resize: 'vertical' }}
-            onFocus={(e) =>
-              (e.target.style = { ...inputFieldStyle, ...inputFieldFocusStyle, height: '100px', resize: 'vertical' })
-            }
-            onBlur={(e) =>
-              (e.target.style = { ...inputFieldStyle, height: '100px', resize: 'vertical' })
-            }
+            className="w-full p-3 border border-gray-300 rounded-md mb-4 h-32 resize-none"
           />
 
           {/* Add Entry Button */}
-          <button onClick={handleAddEntry} style={addButtonStyle}>
+          <button
+            onClick={handleAddEntry}
+            className="bg-[#10b981] text-white py-2 px-4 rounded-md w-full hover:bg-[#059669] transition duration-300"
+          >
             Add Entry
           </button>
         </div>
 
         {/* ENTRIES LIST */}
-        <div style={{ marginTop: '2rem' }}>
-          <h2 style={diaryTitleStyle}>Diary Entries</h2>
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-black mb-4">Diary Entries</h2>
           {entries.map((entry) => (
-            <div key={entry.id} style={entryItemStyle}>
+            <div key={entry.id} className="flex flex-col gap-4 bg-white rounded-md p-4 mb-4 shadow-md">
               <div>
-                <p>
-                  <strong>Date:</strong> {entry.date}
-                </p>
-                <p>
-                  <strong>Symptom:</strong> {entry.symptom}
-                </p>
-                <p>
-                  <strong>Notes:</strong> {entry.notes}
-                </p>
+                <p><strong>Date:</strong> {entry.date}</p>
+                <p><strong>Symptom:</strong> {entry.symptom}</p>
+                <p><strong>Notes:</strong> {entry.notes}</p>
               </div>
               <button
                 onClick={() => handleDeleteEntry(entry.id)}
-                style={deleteButtonStyle}
+                className="bg-red-600 text-white py-1 px-3 rounded-sm mt-2"
               >
                 Delete
               </button>

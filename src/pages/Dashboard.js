@@ -1,9 +1,9 @@
-// src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NotificationBell from './NotificationBell'; // Import NotificationBell component
 import { useNotification } from './NotificationContext'; // Import Notification Context
 import NotificationPopup from './NotificationPopup'; // Import the combined NotificationPopup
+import { FaHeartbeat, FaComment, FaMapMarkerAlt, FaSignOutAlt } from 'react-icons/fa'; // Import icons
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -32,74 +32,77 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-600 flex flex-col items-center justify-center p-4">
-      {/* Header */}
-      <div className="flex justify-between w-full max-w-sm">
-        <h1 className="text-3xl sm:text-5xl font-bold text-white mb-8 text-center">
-          Welcome, {username}!
-        </h1>
-
-        {/* Notification Bell Icon */}
-        <div className="relative">
-          <NotificationBell onClick={handleBellClick} />
-          {notifications.length > 0 && (
-            <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">
-              {notifications.length}
-            </div>
-          )}
+    <div className="min-h-screen bg-[#1e293b] flex justify-center items-center py-10"> {/* Dark blue background */}
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        {/* Header */}
+        <div className="flex justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Welcome, {username}!</h1>
+          {/* Notification Bell Icon */}
+          <div className="relative cursor-pointer" onClick={handleBellClick}>
+            <NotificationBell />
+            {notifications.length > 0 && (
+              <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">
+                {notifications.length}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Displaying the Notifications */}
-      {notifications.length > 0 && (
-        <div className="w-full max-w-sm mt-4">
-          <ul>
-            {notifications.map((notif, index) => (
-              <li key={index} className="bg-gray-800 text-white p-3 rounded-lg mb-2">
-                {notif.message}
-              </li>
-            ))}
+        {/* Display Notifications */}
+        {notifications.length > 0 && (
+          <div className="w-full max-w-sm mt-4">
+            <ul>
+              {notifications.map((notif, index) => (
+                <li key={index} className="bg-[#f87171] text-white p-3 rounded-lg mb-2">
+                  {notif.message}
+                </li>
+              ))}
           </ul>
         </div>
       )}
 
-      {/* Display Notification Popup */}
-      {isPopupVisible && (
-        <NotificationPopup 
-          notifications={notifications}
-          onClose={() => setIsPopupVisible(false)} // Close the popup when user dismisses it
-        />
-      )}
+        {/* Display Notification Popup */}
+        {isPopupVisible && (
+          <NotificationPopup 
+            notifications={notifications}
+            onClose={() => setIsPopupVisible(false)} // Close the popup when user dismisses it
+          />
+        )}
 
-      {/* Container for the buttons */}
-      <div className="space-y-4 w-full max-w-sm flex flex-col items-center">
-        <button
-          onClick={() => navigate("/health-diary")}
-          className="w-full bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-purple-600 transition transform hover:scale-105 shadow-lg"
-        >
-          Go to Health Diary
-        </button>
+        {/* Buttons Section */}
+        <div className="space-y-4 mt-8">
+          <button
+            onClick={() => navigate("/health-diary")}
+            className="w-full bg-[#10b981] text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-[#059669] transition transform hover:scale-105 shadow-lg flex items-center justify-center"
+          >
+            <FaHeartbeat className="mr-3 text-white opacity-70" /> {/* Heartbeat Icon */}
+            Go to Health Diary
+          </button>
 
-        <button
-          onClick={() => navigate("/chat")}
-          className="w-full bg-green-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-green-600 transition transform hover:scale-105 shadow-lg"
-        >
-          Chat with GPT
-        </button>
+          <button
+            onClick={() => navigate("/chat")}
+            className="w-full bg-[#10b981] text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-[#059669] transition transform hover:scale-105 shadow-lg flex items-center justify-center"
+          >
+            <FaComment className="mr-3 text-white opacity-70" /> {/* Chat Icon */}
+            Chat with GPT
+          </button>
 
-        <button
-          onClick={() => navigate("/map")}
-          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-blue-600 transition transform hover:scale-105 shadow-lg"
-        >
-          Maps
-        </button>
+          <button
+            onClick={() => navigate("/map")}
+            className="w-full bg-[#10b981] text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-[#059669] transition transform hover:scale-105 shadow-lg flex items-center justify-center"
+          >
+            <FaMapMarkerAlt className="mr-3 text-white opacity-70" /> {/* Map Icon */}
+            Maps
+          </button>
 
-        <button
-          onClick={() => navigate("/")}
-          className="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-red-600 transition transform hover:scale-105 shadow-lg"
-        >
-          Log Out
-        </button>
+          <button
+            onClick={() => navigate("/")}
+            className="w-full bg-[#10b981] text-white py-3 px-6 rounded-lg font-semibold text-lg text-center hover:bg-[#059669] transition transform hover:scale-105 shadow-lg flex items-center justify-center"
+          >
+            <FaSignOutAlt className="mr-3 text-white opacity-70" /> {/* Sign-out Icon */}
+            Log Out
+          </button>
+        </div>
       </div>
     </div>
   );
